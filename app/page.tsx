@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useState, useRef } from "react";
 import GlassTexture from '../components/GlassTexture';
 import GameHeader from '../components/GameHeader';
-import Game from '../components/Game';
+import Game, { GameRef } from '../components/Game';
 
 function ContactLink() {
   const [hovered, setHovered] = useState(false);
@@ -42,8 +42,7 @@ function ContactLink() {
 
 export default function Home() {
   const [gameOpen, setGameOpen] = useState(false);
-  const gameRef = useRef<any>(null);
-  const GameAny: any = Game;
+  const gameRef = useRef<GameRef | null>(null);
 
   const handlePlayClick = () => {
     if (gameOpen) {
@@ -67,7 +66,7 @@ export default function Home() {
         Play
       </button>
 
-      {gameOpen && <GameAny ref={gameRef} onClose={() => setGameOpen(false)} />}
+      {gameOpen && <Game ref={gameRef} onClose={() => setGameOpen(false)} />}
       {/* ================= HERO SECTION ================= */}
       <section className="flex flex-col items-center justify-center h-screen px-4 text-center">
         <motion.h1
