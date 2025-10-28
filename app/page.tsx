@@ -58,6 +58,7 @@ export default function Home() {
               href="https://www.lovebullets.co.uk"
               className="text-blue-400 underline"
             >
+              <img src="/public/images/lovebullets.png" alt="lovebullets screenshot" className="rounded-lg" />
               Visit
             </a>
           </motion.div>
