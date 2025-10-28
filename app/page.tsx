@@ -137,12 +137,12 @@ export default function Home() {
         </div>
       </section>
 
-      /*
-      {/* ================= EMBEDDED CONTENT ================= */}
+      {/*
+      
       <section className="px-4 py-16 max-w-4xl mx-auto">
         <h2 className="text-4xl font-bold mb-8 text-center">External Content</h2>
 
-        {/* YouTube Embed */}
+        
         <div className="mb-12">
           <h3 className="text-2xl font-semibold mb-4">My YouTube Video</h3>
           <div className="aspect-w-16 aspect-h-9">
@@ -155,7 +155,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* GitHub Embed */}
+        
         <div className="mb-12">
           <h3 className="text-2xl font-semibold mb-4">My GitHub Repo</h3>
           <a
@@ -168,7 +168,7 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Instagram Embed */}
+        
         <div>
           <h3 className="text-2xl font-semibold mb-4">Instagram Post</h3>
           <iframe
@@ -181,7 +181,7 @@ export default function Home() {
           ></iframe>
         </div>
       </section> 
-      */
+      */}
 
       {/* ================= FOOTER ================= */}
       <footer className="bg-gray-800 py-8 mt-16 text-center">
