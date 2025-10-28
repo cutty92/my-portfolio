@@ -8,7 +8,7 @@ function ContactLink() {
   const [hovered, setHovered] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const email = "your.email@example.com";
+  const email = "cutcliffecharlie@gmail.com";
 
   const handleClick = () => {
     navigator.clipboard.writeText(email);
@@ -56,7 +56,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
         >
-          A showcase of my previous web design
+          A visual showcase of my skillset
         </motion.p>
         {/* ================= CTA BUTTON ================= */}
         <motion.a
@@ -66,14 +66,14 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
         >
-          View Projects
+          Web Design
         </motion.a>
       </section>
 
       {/* ================= PROJECTS GRID ================= */}
       <section id="projects" className="px-4 py-16 max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold mb-8 text-center text-white">
-          My Projects
+          Web Design
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
           {/* Example project card */}
@@ -197,14 +197,7 @@ export default function Home() {
           >
             GitHub
           </a>
-          <a
-            href="https://www.instagram.com/YOUR-USERNAME/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white"
-          >
-            Instagram
-          </a>
+
           <ContactLink />
         </div>
       </footer>
