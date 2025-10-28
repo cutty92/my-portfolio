@@ -24,12 +24,16 @@ export default function GlassTexture() {
           MSc Applied Marine Geophysics <br></br>
           BSC Ocean Science<br></br>
         </p>
-        <h2 className="text-3xl font-bold text-white my-4">Skills</h2>
+        <h2 className="text-3xl font-bold text-white my-4">Languages</h2>
         <p className="text-gray-200">
-          JavaScript, React, Next.js, Node.js, Python, HTML, CSS, Git, GitHub,
-          Data Analysis, Geophysical Software
+          C++, C#, JavaScript, React, Next.js, Node.js, Python, HTML, CSS, MATLAB
+          
+                  <h2 className="text-3xl font-bold text-white my-4">Software</h2>
+         </p>
+        <p className="text-gray-200">
+          Substance, Blender, Unreal Engine inc. Niagara, Unity, ComfyUI, Affinity Designer, ArcMap, Canva, Git, World Builders (various), Microsoft Suite inc. Access
         </p>
-      </div>
+            </div>
     </div>
   );
 }
