@@ -137,6 +137,7 @@ export default function Home() {
         </div>
       </section>
 
+      /*
       {/* ================= EMBEDDED CONTENT ================= */}
       <section className="px-4 py-16 max-w-4xl mx-auto">
         <h2 className="text-4xl font-bold mb-8 text-center">External Content</h2>
@@ -179,7 +180,8 @@ export default function Home() {
             title="Instagram embed"
           ></iframe>
         </div>
-      </section>
+      </section> 
+      */
 
       {/* ================= FOOTER ================= */}
       <footer className="bg-gray-800 py-8 mt-16 text-center">
