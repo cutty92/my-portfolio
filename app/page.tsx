@@ -50,16 +50,16 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h3 className="text-2xl font-semibold mb-2">Love Bullet</h3>
+            <h3 className="text-2xl font-semibold mb-2">lovebullets.co.uk</h3>
             <p className="text-gray-300 mb-4">
-              lovebullets.co.uk.
+              High-end Jewellery e-commerce store
             </p>
             <a
               href="https://www.lovebullets.co.uk"
               className="text-blue-400 underline"
             >
               <img src="/images/lovebullets.png" alt="lovebullets screenshot" className="rounded-lg" />
-              Visit
+          
             </a>
           </motion.div>
 
