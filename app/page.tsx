@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import GlassTexture from '../components/GlassTexture';
 import GameHeader from '../components/GameHeader';
+import Game from '../components/Game';
 
 function ContactLink() {
   const [hovered, setHovered] = useState(false);
@@ -39,9 +40,20 @@ function ContactLink() {
   );
 }
 
-export default function Home() {<GameHeader />;
+export default function Home() {
+  const [gameOpen, setGameOpen] = useState(false);
+
   return (
     <div className="bg-gray-900 min-h-screen text-white">
+      {/* Play button (opens game overlay) */}
+      <button
+        onClick={() => setGameOpen(true)}
+        className="fixed top-4 right-4 z-50 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md shadow-lg"
+      >
+        Play
+      </button>
+
+      {gameOpen && <Game onClose={() => setGameOpen(false)} />}
       {/* ================= HERO SECTION ================= */}
       <section className="flex flex-col items-center justify-center h-screen px-4 text-center">
         <motion.h1
