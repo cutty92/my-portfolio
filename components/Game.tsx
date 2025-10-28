@@ -58,6 +58,8 @@ const Game = forwardRef<GameRef, GameProps>(function Game({ onClose }, ref) {
   const blockerRectsRef = useRef<DOMRect[]>([]);
   const [score, setScore] = useState(0);
   const scoreRef = useRef(0);
+  const scoreHitRef = useRef<number>(0);
+  const [gameOver, setGameOver] = useState(false);
   const [hiscore, setHiscore] = useState(() => {
     try {
       return Number(localStorage.getItem('ascii-hiscore') || 0);
@@ -261,15 +263,13 @@ const Game = forwardRef<GameRef, GameProps>(function Game({ onClose }, ref) {
     for (let i = enemies.length - 1; i >= 0; i--) {
       const e = enemies[i];
       moveEnemy(e, dt, elapsedSec);
-      if (Math.hypot(e.x - mouseRef.current.x, e.y - mouseRef.current.y) < 12) {
-        enemies.splice(i, 1);
-        // penalize player when enemy reaches cursor
-        setScore((s) => {
-          const ns = Math.max(0, s - 5);
-          scoreRef.current = ns;
-          return ns;
-        });
-      }
+      // if an enemy reaches the cursor, the game ends
+        if (Math.hypot(e.x - mouseRef.current.x, e.y - mouseRef.current.y) < 12) {
+          // end the game immediately and show Game Over overlay
+          cancelAnimationFrame(rafRef.current);
+          setGameOver(true);
+          return; // exit the loop/animation to avoid further updates
+        }
     }
 
     const bullets = bulletsRef.current;
@@ -293,6 +293,7 @@ const Game = forwardRef<GameRef, GameProps>(function Game({ onClose }, ref) {
           setScore((s) => {
             const ns = s + 1;
             scoreRef.current = ns;
+            scoreHitRef.current = now();
             if (ns > hiscoreRef.current) {
               setHiscore(ns);
               hiscoreRef.current = ns;
@@ -331,10 +332,30 @@ const Game = forwardRef<GameRef, GameProps>(function Game({ onClose }, ref) {
       ctx.fill();
     }
 
-    ctx.fillStyle = '#ffffff';
+    // HUD: Score (left) and Hiscore (right)
+    const hitAge = now() - (scoreHitRef.current || 0);
+    const HIT_DUR = 300; // ms
+    let scoreScale = 1;
+    let scoreColor = '#ffffff';
+    if (hitAge >= 0 && hitAge < HIT_DUR) {
+      // scale up and flash yellow, easing out
+      const t = 1 - hitAge / HIT_DUR;
+      scoreScale = 1 + 0.25 * t;
+      // alternate between white and yellow based on t
+      scoreColor = '#ffeb3b';
+    }
+
+    ctx.save();
+    ctx.translate(12, 18);
+    ctx.scale(scoreScale, scoreScale);
+    ctx.fillStyle = scoreColor;
     ctx.font = '18px monospace';
     ctx.textAlign = 'left';
-    ctx.fillText(`Score: ${score}`, 12, 24);
+    ctx.fillText(`Score: ${score}`, 0, 6);
+    ctx.restore();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '18px monospace';
     ctx.textAlign = 'right';
     ctx.fillText(`Hiscore: ${hiscore}`, window.innerWidth - 12, 24);
 
@@ -342,9 +363,37 @@ const Game = forwardRef<GameRef, GameProps>(function Game({ onClose }, ref) {
   }
 
   function stopGame() {
+    // immediate close: persist and notify parent
     cancelAnimationFrame(rafRef.current);
-    try { localStorage.setItem('ascii-hiscore', String(hiscore)); } catch (e) {}
+    try { localStorage.setItem('ascii-hiscore', String(hiscoreRef.current)); } catch (e) {}
     if (onClose) onClose({ score: scoreRef.current, hiscore: hiscoreRef.current });
+  }
+
+  function endGameShowOverlay() {
+    // stop the loop and show Game Over overlay
+    cancelAnimationFrame(rafRef.current);
+    setGameOver(true);
+  }
+
+  function handleCloseFromOverlay() {
+    // when user clicks Close on overlay: persist hiscore and call parent
+    try { localStorage.setItem('ascii-hiscore', String(hiscoreRef.current)); } catch (e) {}
+    if (onClose) onClose({ score: scoreRef.current, hiscore: hiscoreRef.current });
+  }
+
+  function handleRestart() {
+    // reset state and restart loop
+    enemiesRef.current.length = 0;
+    bulletsRef.current.length = 0;
+    scoreRef.current = 0;
+    setScore(0);
+    startedAtRef.current = now();
+    lastSpawnRef.current = 0;
+    lastFireRef.current = 0;
+    scoreHitRef.current = 0;
+    setGameOver(false);
+    lastTimeRef.current = now();
+    rafRef.current = requestAnimationFrame(loop);
   }
 
   // expose imperative close() so parent can programmatically close the game and get score
@@ -369,6 +418,30 @@ const Game = forwardRef<GameRef, GameProps>(function Game({ onClose }, ref) {
       <div style={{ position: 'fixed', left: 12, top: 40, zIndex: 10000, pointerEvents: 'auto' }}>
         <button onClick={stopGame} aria-label="Close game">Close</button>
       </div>
+
+      {gameOver && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', zIndex: 10001, display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'auto' }}>
+          <div style={{ width: 520, maxWidth: '90%', padding: 28, background: '#0b1220', border: '4px solid #fff', boxShadow: '0 8px 24px rgba(0,0,0,0.6)', fontFamily: 'monospace', color: '#fff', textAlign: 'center' }}>
+            <h1 style={{ fontSize: 48, margin: 0, letterSpacing: 4, color: '#ff4757' }}>GAME OVER</h1>
+            <p style={{ marginTop: 8, marginBottom: 20, color: '#ffd166' }}>You were overwhelmed by ASCII invaders</p>
+            <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', marginBottom: 20 }}>
+              <div>
+                <div style={{ color: '#9ae6b4', fontSize: 18 }}>Score</div>
+                <div style={{ fontSize: 32, fontWeight: 700 }}>{score}</div>
+              </div>
+              <div>
+                <div style={{ color: '#9ae6b4', fontSize: 18 }}>Hiscore</div>
+                <div style={{ fontSize: 32, fontWeight: 700 }}>{hiscore}</div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+              <button onClick={handleRestart} style={{ padding: '10px 18px', background: '#4bffa5', border: 'none', borderRadius: 6, cursor: 'pointer', fontFamily: 'monospace', fontWeight: 700 }}>Restart</button>
+              <button onClick={handleCloseFromOverlay} style={{ padding: '10px 18px', background: '#ff6b6b', border: 'none', borderRadius: 6, cursor: 'pointer', fontFamily: 'monospace', fontWeight: 700 }}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 });
