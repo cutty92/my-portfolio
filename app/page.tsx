@@ -44,7 +44,7 @@ export default function Home() {
       {/* ================= HERO SECTION ================= */}
       <section className="flex flex-col items-center justify-center h-screen px-4 text-center">
         <motion.h1
-          className="text-6xl md:text-7xl font-bold mb-4 text-blue-400"
+          className="text-6xl md:text-7xl font-bold mb-4 text-white-400"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
