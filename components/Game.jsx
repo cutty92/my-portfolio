@@ -1,9 +1,11 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useImperativeHandle } from 'react';
 
 const ENEMY_CHARS = ['@', '#', '%', '&', 'o', 'X', '¥'];
 const MAX_ENEMIES = 60;
 const SPAWN_INTERVAL_MS = 900;
-const FIRE_INTERVAL_MS = 400;
+const BASE_FIRE_INTERVAL_MS = 400;
+// slow down rate of fire by 30%
+const FIRE_INTERVAL_MS = Math.round(BASE_FIRE_INTERVAL_MS * 1.3);
 const BULLET_SPEED = 900; // px/s
 const ENEMY_BASE_SPEED = 40; // px/s
 const SPEED_ACCEL_PER_SEC = 3; // px/s per second
@@ -18,7 +20,7 @@ function clamp(v, a, b) {
   return Math.max(a, Math.min(b, v));
 }
 
-export default function Game({ onClose }) {
+const Game = React.forwardRef(function Game({ onClose }, ref) {
   const canvasRef = useRef(null);
   const rafRef = useRef(null);
   const lastTimeRef = useRef(0);
@@ -27,6 +29,7 @@ export default function Game({ onClose }) {
   const bulletsRef = useRef([]);
   const blockerRectsRef = useRef([]);
   const [score, setScore] = useState(0);
+  const scoreRef = useRef(0);
   const [hiscore, setHiscore] = useState(() => {
     try {
       return Number(localStorage.getItem('ascii-hiscore') || 0);
@@ -34,6 +37,7 @@ export default function Game({ onClose }) {
       return 0;
     }
   });
+  const hiscoreRef = useRef(hiscore);
   const startedAtRef = useRef(now());
   const lastSpawnRef = useRef(0);
   const lastFireRef = useRef(0);
@@ -101,6 +105,14 @@ export default function Game({ onClose }) {
     try {
       localStorage.setItem('ascii-hiscore', String(hiscore));
     } catch (e) {}
+  }, [hiscore]);
+
+  // keep refs in sync with state for use in the animation loop (avoids stale closures)
+  useEffect(() => {
+    scoreRef.current = score;
+  }, [score]);
+  useEffect(() => {
+    hiscoreRef.current = hiscore;
   }, [hiscore]);
 
   function spawnEnemy() {
@@ -220,8 +232,12 @@ export default function Game({ onClose }) {
       moveEnemy(e, dt, elapsedSec);
       if (Math.hypot(e.x - mouseRef.current.x, e.y - mouseRef.current.y) < 12) {
         enemies.splice(i, 1);
-        const newScore = Math.max(0, score - 5);
-        setScore(newScore);
+        // penalize player when enemy reaches cursor
+        setScore((s) => {
+          const ns = Math.max(0, s - 5);
+          scoreRef.current = ns;
+          return ns;
+        });
       }
     }
 
@@ -242,11 +258,16 @@ export default function Game({ onClose }) {
           enemies.splice(ei, 1);
           bullets.splice(bi, 1);
           hit = true;
-          const newScore = score + 1;
-          setScore(newScore);
-          if (newScore > hiscore) {
-            setHiscore(newScore);
-          }
+          // increment score safely using functional update
+          setScore((s) => {
+            const ns = s + 1;
+            scoreRef.current = ns;
+            if (ns > hiscoreRef.current) {
+              setHiscore(ns);
+              hiscoreRef.current = ns;
+            }
+            return ns;
+          });
           break;
         }
       }
@@ -290,8 +311,13 @@ export default function Game({ onClose }) {
   function stopGame() {
     cancelAnimationFrame(rafRef.current);
     try { localStorage.setItem('ascii-hiscore', String(hiscore)); } catch (e) {}
-    if (onClose) onClose({ score, hiscore });
+    if (onClose) onClose({ score: scoreRef.current, hiscore: hiscoreRef.current });
   }
+
+  // expose imperative close() so parent can programmatically close the game and get score
+  useImperativeHandle(ref, () => ({
+    close: () => stopGame(),
+  }), [/* no deps, stopGame uses refs */]);
 
   return (
     <>
@@ -312,4 +338,6 @@ export default function Game({ onClose }) {
       </div>
     </>
   );
-}
+});
+
+export default Game;
