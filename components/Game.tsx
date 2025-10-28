@@ -3,8 +3,8 @@ const ENEMY_CHARS = ['@', '#', '%', '&', 'o', 'X', '¥'];
 const MAX_ENEMIES = 60;
 const SPAWN_INTERVAL_MS = 900;
 const BASE_FIRE_INTERVAL_MS = 400;
-// slow down rate of fire by 30%
-const FIRE_INTERVAL_MS = Math.round(BASE_FIRE_INTERVAL_MS * 1.3);
+// slow down rate of fire by 30% initially, then slow by another 50% (1.3 * 1.5 = 1.95x)
+const FIRE_INTERVAL_MS = Math.round(BASE_FIRE_INTERVAL_MS * 1.95);
 const BULLET_SPEED = 900; // px/s
 const ENEMY_BASE_SPEED = 40; // px/s
 const SPEED_ACCEL_PER_SEC = 3; // px/s per second
@@ -345,19 +345,20 @@ const Game = forwardRef<GameRef, GameProps>(function Game({ onClose }, ref) {
       scoreColor = '#ffeb3b';
     }
 
-    ctx.save();
-    ctx.translate(12, 18);
-    ctx.scale(scoreScale, scoreScale);
-    ctx.fillStyle = scoreColor;
-    ctx.font = '18px monospace';
-    ctx.textAlign = 'left';
-    ctx.fillText(`Score: ${score}`, 0, 6);
-    ctx.restore();
+  ctx.save();
+  ctx.translate(12, 18);
+  ctx.scale(scoreScale, scoreScale);
+  ctx.fillStyle = scoreColor;
+  ctx.font = '18px monospace';
+  ctx.textAlign = 'left';
+  // read from refs so the animation loop sees the latest values
+  ctx.fillText(`Score: ${scoreRef.current}`, 0, 6);
+  ctx.restore();
 
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '18px monospace';
-    ctx.textAlign = 'right';
-    ctx.fillText(`Hiscore: ${hiscore}`, window.innerWidth - 12, 24);
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '18px monospace';
+  ctx.textAlign = 'right';
+  ctx.fillText(`Hiscore: ${hiscoreRef.current}`, window.innerWidth - 12, 24);
 
     ctx.restore();
   }
