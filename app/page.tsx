@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import GlassTexture from '../components/GlassTexture';
+import GameHeader from '../components/GameHeader';
 
 function ContactLink() {
   const [hovered, setHovered] = useState(false);
@@ -37,7 +38,7 @@ function ContactLink() {
     </div>
   );
 }
-
+<GameHeader />;
 export default function Home() {
   return (
     <div className="bg-gray-900 min-h-screen text-white">
