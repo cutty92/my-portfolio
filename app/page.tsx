@@ -3,6 +3,7 @@
 // pages/index.js  (or app/page.js if using App Router)
 import { motion } from "framer-motion";
 import { useState } from "react";
+import GlassTexture from '../components/GlassTexture';
 
 function ContactLink() {
   const [hovered, setHovered] = useState(false);
@@ -207,6 +208,7 @@ export default function Home() {
         <h2 className="text-4xl font-bold mb-8 text-center text-white">
           About Me
         </h2>
+        <GlassTexture />
       </section>
 
       {/* ================= FOOTER ================= */}
