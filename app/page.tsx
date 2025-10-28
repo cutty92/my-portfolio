@@ -77,6 +77,15 @@ export default function Home() {
         >
           AI Generated Artwork
         </motion.a>
+        <motion.a
+          href="#about"
+          className="mt-8 px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-full font-semibold transition-colors"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+        >
+          About Me
+        </motion.a>
       </section>
 
       {/* ================= PROJECTS GRID ================= */}
@@ -191,6 +200,15 @@ export default function Home() {
         </div>
       </section> 
       */}
+
+        {/* ================= ABOUT ================= */}
+
+      <section id="about" className="px-4 py-16 max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8 text-center text-white">
+          About Me
+        </h2>
+        </div>
+      </section>
 
       {/* ================= FOOTER ================= */}
       <footer className="bg-gray-800 py-8 mt-16 text-center">
