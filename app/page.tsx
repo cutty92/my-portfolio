@@ -138,7 +138,7 @@ export default function Home() {
           <iframe
             src="https://www.instagram.com/p/CnXxxxxxx/embed"
             className="w-full h-[500px] rounded-lg"
-            allowTransparency="true"
+            allowTransparency={true}
             frameBorder="0"
             scrolling="no"
             title="Instagram embed"
