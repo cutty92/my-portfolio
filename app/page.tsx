@@ -70,15 +70,15 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-semibold mb-2">Project Two</h3>
+            <h3 className="text-2xl font-semibold mb-2">silent-king.co.uk</h3>
             <p className="text-gray-300 mb-4">
-              Another project example with description.
+              Designer clothing e-commerce store
             </p>
             <a
-              href="/projects/project-two"
+              href="https://silent-king.co.uk"
               className="text-blue-400 underline"
             >
-              View Details
+            <img src="/images/silent-king.png" alt="silent king screenshot" className="rounded-lg" />
             </a>
           </motion.div>
 
