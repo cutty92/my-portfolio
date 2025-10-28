@@ -89,15 +89,15 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <h3 className="text-2xl font-semibold mb-2">Project Three</h3>
+            <h3 className="text-2xl font-semibold mb-2">theabbeystore.co.uk</h3>
             <p className="text-gray-300 mb-4">
-              Description of Project Three.
+              Local health & wellbeing e-commerce store
             </p>
             <a
-              href="/projects/project-three"
+              href="https://www.theabbeystore.co.uk/"
               className="text-blue-400 underline"
             >
-              View Details
+             <img src="/images/theabbeystore.png" alt="the abbey store screenshot" className="rounded-lg" />
             </a>
           </motion.div>
         </div>
