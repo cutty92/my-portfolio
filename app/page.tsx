@@ -55,7 +55,7 @@ export default function Home() {
               lovebullets.co.uk.
             </p>
             <a
-              href="www.lovebullets.co.uk"
+              href="https://www.lovebullets.co.uk"
               className="text-blue-400 underline"
             >
               Visit
