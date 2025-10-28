@@ -56,7 +56,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
         >
-          A visual showcase of my skillset
+          A visual showcase
         </motion.p>
         {/* ================= CTA BUTTON ================= */}
         <motion.a
@@ -67,6 +67,15 @@ export default function Home() {
           transition={{ delay: 1.5, duration: 0.8 }}
         >
           Web Design
+        </motion.a>
+        <motion.a
+          href="#projects"
+          className="mt-8 px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-full font-semibold transition-colors"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+        >
+          AI Generated Artwork
         </motion.a>
       </section>
 
