@@ -14,7 +14,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
         >
-          Welcome to My Portfolio
+          Charles Cutcliffe <br></br> Portfolio
         </motion.h1>
         <motion.p
           className="text-lg md:text-xl text-gray-300 max-w-xl"
@@ -22,7 +22,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
         >
-          A showcase of my projects, animations, and code experiments.
+          A showcase of my previous web design
         </motion.p>
         {/* ================= CTA BUTTON ================= */}
         <motion.a
@@ -50,15 +50,15 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h3 className="text-2xl font-semibold mb-2">Project One</h3>
+            <h3 className="text-2xl font-semibold mb-2">Love Bullet</h3>
             <p className="text-gray-300 mb-4">
-              Description of Project One. Short summary of what it does.
+              lovebullets.co.uk.
             </p>
             <a
-              href="/projects/project-one"
+              href="www.lovebullets.co.uk"
               className="text-blue-400 underline"
             >
-              View Details
+              Visit
             </a>
           </motion.div>
 
