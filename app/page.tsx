@@ -38,8 +38,8 @@ function ContactLink() {
     </div>
   );
 }
-<GameHeader />;
-export default function Home() {
+
+export default function Home() {<GameHeader />;
   return (
     <div className="bg-gray-900 min-h-screen text-white">
       {/* ================= HERO SECTION ================= */}
@@ -145,7 +145,7 @@ export default function Home() {
           >
             <h3 className="text-2xl font-semibold mb-2">theabbeystore.co.uk</h3>
             <p className="text-gray-300 mb-4">
-              Local health & wellbeing e-commerce store
+              Health & wellbeing e-commerce store
             </p>
             <a
               href="https://www.theabbeystore.co.uk/"
