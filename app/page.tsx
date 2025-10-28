@@ -2,6 +2,40 @@
 
 // pages/index.js  (or app/page.js if using App Router)
 import { motion } from "framer-motion";
+import { useState } from "react";
+
+function ContactLink() {
+  const [hovered, setHovered] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const email = "your.email@example.com";
+
+  const handleClick = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  };
+
+  return (
+    <div className="relative inline-block">
+      <a
+        href="#!"
+        className="text-gray-400 hover:text-white cursor-pointer"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onClick={handleClick}
+      >
+        {hovered ? email : "Contact"}
+      </a>
+
+      {copied && (
+        <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded-md shadow-md">
+          Copied!
+        </span>
+      )}
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -124,12 +158,12 @@ export default function Home() {
         <div className="mb-12">
           <h3 className="text-2xl font-semibold mb-4">My GitHub Repo</h3>
           <a
-            href="https://github.com/YOUR-USERNAME"
+            href="https://github.com/cutty92"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-400 underline"
           >
-            Visit my GitHub
+          
           </a>
         </div>
 
@@ -150,11 +184,11 @@ export default function Home() {
       {/* ================= FOOTER ================= */}
       <footer className="bg-gray-800 py-8 mt-16 text-center">
         <p className="text-gray-400 mb-2">
-          © 2025 Your Name. All rights reserved.
+          © 2025 Charles Cutcliffe. All rights reserved.
         </p>
         <div className="flex justify-center space-x-4">
           <a
-            href="https://github.com/YOUR-USERNAME"
+            href="https://github.com/cutty92"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-400 hover:text-white"
@@ -169,12 +203,7 @@ export default function Home() {
           >
             Instagram
           </a>
-          <a
-            href="/contact"
-            className="text-gray-400 hover:text-white"
-          >
-            Contact
-          </a>
+          <ContactLink />
         </div>
       </footer>
     </div>
