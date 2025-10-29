@@ -99,7 +99,7 @@ export default function MagneticNavbar() {
         <button
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           onClick={() => setMobileOpen((v) => !v)}
-          className="fixed top-4 left-4 z-50 rounded-md bg-gray-900/70 p-2 text-gray-100 shadow-md backdrop-blur"
+          className="fixed top-12 left-4 z-50 rounded-md bg-gray-900/70 p-2 text-gray-100 shadow-md backdrop-blur"
         >
           <span className="text-2xl">☰</span>
         </button>
@@ -112,7 +112,7 @@ export default function MagneticNavbar() {
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               style={{ backgroundColor: 'rgba(10, 12, 14, 0.98)' }}
-              className="fixed left-0 top-20 z-40 h-full w-64 shadow-xl p-6"
+              className="fixed left-0 top-0 z-40 h-full w-64 shadow-xl p-6"
             >
               <nav className="flex flex-col gap-4 mt-6">
                 {items.map((it) => (
