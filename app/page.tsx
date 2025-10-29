@@ -151,12 +151,12 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-semibold mb-2">silent-king.co.uk</h3>
+            <h3 className="text-2xl font-semibold mb-2">silent-king.com</h3>
             <p className="text-gray-300 mb-4">
               Designer clothing e-commerce store
             </p>
             <a
-              href="https://silent-king.co.uk"
+              href="https://silent-king.com"
               className="text-blue-400 underline"
             >
             <img src="/images/silent-king.png" alt="silent king screenshot" className="rounded-lg" />

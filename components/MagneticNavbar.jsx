@@ -13,8 +13,8 @@ function MenuItem({ label, href = '#', className = '' }) {
     const relX = e.clientX - rect.left - rect.width / 2
     const relY = e.clientY - rect.top - rect.height / 2
     // scale down the movement so it's subtle
-    x.set(relX * 0.12)
-    y.set(relY * 0.08)
+    x.set(relX * 0.5)
+    y.set(relY * 0.5)
   }
 
   function handleLeave() {
@@ -112,7 +112,7 @@ export default function MagneticNavbar() {
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               style={{ backgroundColor: 'rgba(10, 12, 14, 0.98)' }}
-              className="fixed left-0 top-0 z-40 h-full w-64 shadow-xl p-6"
+              className="fixed left-0 top-20 z-40 h-full w-64 shadow-xl p-6"
             >
               <nav className="flex flex-col gap-4 mt-6">
                 {items.map((it) => (
