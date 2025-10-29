@@ -6,6 +6,7 @@ import { useState, useRef } from "react";
 import GlassTexture from '../components/GlassTexture';
 import GameHeader from '../components/GameHeader';
 import Game, { GameRef } from '../components/Game';
+import MagneticNavbar from '../components/MagneticNavbar';
 
 function ContactLink() {
   const [hovered, setHovered] = useState(false);
@@ -58,6 +59,7 @@ export default function Home() {
 
   return (
     <div className="bg-gray-900 min-h-screen text-white">
+      <MagneticNavbar />
       {/* Play button (opens game overlay) */}
       <button
         onClick={handlePlayClick}
