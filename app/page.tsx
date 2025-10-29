@@ -105,7 +105,7 @@ export default function Home() {
           AI Generated Artwork
         </motion.a>
         <motion.a
-          href="#about"
+          href="#ai"
           className="mt-8 px-6 py-3 bg-blue-500 hover:bg-blue-600 rounded-full font-semibold transition-colors"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -227,7 +227,14 @@ export default function Home() {
         </div>
       </section> 
       */}
+        {/* ================= AI ================= */}
 
+      <section id="ai" className="px-4 py-16 max-w-6xl mx-auto">
+        <h2 className="text-4xl font-bold mb-8 text-center text-white">
+          AI Artwork
+        </h2>
+        
+      </section>
         {/* ================= ABOUT ================= */}
 
       <section id="about" className="px-4 py-16 max-w-6xl mx-auto">
