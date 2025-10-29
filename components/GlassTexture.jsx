@@ -11,7 +11,7 @@ export default function GlassTexture() {
 
   const glowChange = scrollY % 360;
   const glowStyle = {
-    boxShadow: `30 30 30px ${glowChange}px hsl(${glowChange}, 70%, 80%`,};
+    boxShadow: `30px 30px 30px ${glowChange / 10}px hsl(${glowChange}, 70%, 80%`,};
 
   return (
     <div className="flex justify-center my-32">
