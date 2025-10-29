@@ -114,7 +114,7 @@ export default function MagneticNavbar() {
               style={{ backgroundColor: 'rgba(10, 12, 14, 0.98)' }}
               className="fixed left-0 top-0 z-40 h-full w-64 shadow-xl p-6"
             >
-              <nav className="flex flex-col gap-4 mt-6 pt-4">
+              <nav className="flex flex-col gap-4 mt-6 pt-6">
                 {items.map((it) => (
                   <a
                     key={it.label}
