@@ -9,7 +9,7 @@ export default function GlassTexture() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const glowChange = scrollY % 360;
+  const glowChange = scrollY % 3;
   const glowStyle = {
     boxShadow: `0 0 ${glowChange} 5px hsl(120, 100%, 200%`,};
 
